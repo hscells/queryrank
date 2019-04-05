@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/plugin/queryrank/static/picnic.min.css">
+    <style>
+        .stack .button {
+            background-color: #aaaaaa;
+        }
+
+        .query {
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        main {
+            max-width: 960px;
+            margin: auto;
+        }
+
+        @media only screen and (max-width: 960px) {
+            main {
+                margin: -12px;
+                padding: 32px;
+            }
+        }
+
+        /*label {*/
+        /*background-color: #aaaaaa;*/
+        /*margin: 10px;*/
+        /*padding: 5px;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<main>
+    <section>
+        <h1>Query Ranker</h1>
+        <p>Rank the queries from most effective (1) to least effective (4). When satisfied, press the continue button at the bottom of the page to progress the experiment.</p>
+    </section>
+    <form>
+        <section class="flex">
+            {{ range $i, $q := .  }}
+                <div class="flex five">
+                    <div>
+                        <label class="stack">
+                            <input type="radio" name="row-{{$i}}" data-col="1" value="1">
+                            <span class="button toggle checkable">1</span>
+                        </label>
+                        <label class="stack">
+                            <input type="radio" name="row-{{$i}}" data-col="2" value="2">
+                            <span class="button toggle checkable">2</span>
+                        </label>
+                        <label class="stack">
+                            <input type="radio" name="row-{{$i}}" data-col="3" value="3">
+                            <span class="button toggle checkable">3</span>
+                        </label>
+                        <label class="stack">
+                            <input type="radio" name="row-{{$i}}" data-col="4" value="4">
+                            <span class="button toggle checkable">4</span>
+                        </label>
+                    </div>
+                    <div class="query three-fifth">{{$q}}</div>
+                    <div class="card">
+                        <header>Info</header>
+                        <footer>stuff goes here.</footer>
+                    </div>
+                </div>
+            {{ end }}
+        </section>
+        <section>
+            <input type="submit" name="continue">
+        </section>
+    </form>
+
+</main>
+<script src="/plugin/queryrank/static/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var col, el;
+
+    $("input[type=radio]").click(function () {
+        el = $(this);
+        col = el.data("col");
+        $("input[data-col=" + col + "]").prop("checked", false);
+        el.prop("checked", true);
+    })
+</script>
+</body>
+</html>
